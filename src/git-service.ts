@@ -1,19 +1,38 @@
-import { exec } from "child_process";
-import { promisify } from "util";
+import { execSync } from 'child_process';
+import { ParsedCommitType } from './types';
 
-const execAsync = promisify(exec);
+/**
+ * Retrieves the latest git commits and parses them into a structured format.
+ * @param limit Number of commits to retrieve
+ * @returns {ParsedCommitType[]} Array of parsed commit objects
+ */
+export function getCommits(limit: number): ParsedCommitType[] {
+  try {
+    const raw = execSync(`git log -${limit} --pretty=format:"===%n%H%n%an%n%ad%n%s"`, {
+      encoding: 'utf-8',
+    });
 
-export async function getCommits(limit: number): Promise<string[]> {
-	const cmd = `git log -n ${limit} --pretty=format:"%h %s"`;
+    const entries = raw
+      .split('===')
+      .map((block) => block.trim())
+      .filter(Boolean);
 
-	try {
-		const { stdout } = await execAsync(cmd);
-		return stdout
-			.trim()
-			.split("\n")
-			.map((line) => `- ${line}`);
-	} catch (error) {
-		console.error("Failed to fetch commits:", error);
-		return [];
-	}
+    return entries.map((entry) => {
+      const [hash, author, date, message] = entry.split('\n');
+      const typeMatch = message.match(
+        /^(feat|fix|chore|docs|test|refactor|style|ci|build)(\(.+\))?:/i
+      );
+
+      return {
+        hash,
+        author,
+        date,
+        type: typeMatch ? typeMatch[1] : 'other',
+        description: message,
+      };
+    });
+  } catch (error) {
+    console.error('Failed to fetch commits:', error);
+    return [];
+  }
 }
