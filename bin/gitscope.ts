@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { generateSummary } from '../src/core';
+import { generateSummary } from '../src/core/core';
 
 const program = new Command();
 
