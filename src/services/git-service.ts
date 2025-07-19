@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { ParsedCommitType } from './types';
+import { ParsedCommitType } from '../types';
 
 /**
  * Retrieves the latest git commits and parses them into a structured format.
@@ -8,7 +8,7 @@ import { ParsedCommitType } from './types';
  */
 export function getCommits(limit: number): ParsedCommitType[] {
   try {
-    const raw = execSync(`git log -${limit} --pretty=format:"===%n%H%n%an%n%ad%n%s"`, {
+    const raw = execSync(`git log --no-merges -${limit} --pretty=format:"===%n%H%n%an%n%ad%n%s"`, {
       encoding: 'utf-8',
     });
 
@@ -19,9 +19,9 @@ export function getCommits(limit: number): ParsedCommitType[] {
 
     return entries.map((entry) => {
       const [hash, author, date, message] = entry.split('\n');
-      const typeMatch = message.match(
+      const typeMatch = RegExp(
         /^(feat|fix|chore|docs|test|refactor|style|ci|build)(\(.+\))?:/i
-      );
+      ).exec(message);
 
       return {
         hash,
