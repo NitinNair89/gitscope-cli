@@ -18,7 +18,8 @@
     ]
   },
   "scripts": {
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "test": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -29,10 +30,13 @@
     "@eslint/js": "^9.31.0",
     "@eslint/json": "^0.13.0",
     "@eslint/markdown": "^7.0.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.0.15",
     "eslint": "^9.31.0",
     "globals": "^16.3.0",
+    "jest": "^30.0.4",
     "prettier": "^3.6.2",
+    "ts-jest": "^29.4.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.37.0"

@@ -17,20 +17,30 @@ export function getCommits(limit: number): ParsedCommitType[] {
       .map((block) => block.trim())
       .filter(Boolean);
 
-    return entries.map((entry) => {
-      const [hash, author, date, message] = entry.split('\n');
-      const typeMatch = RegExp(
-        /^(feat|fix|chore|docs|test|refactor|style|ci|build)(\(.+\))?:/i
-      ).exec(message);
+    return entries
+      .map((entry) => {
+        const lines = entry.split('\n');
 
-      return {
-        hash,
-        author,
-        date,
-        type: typeMatch ? typeMatch[1] : 'other',
-        description: message,
-      };
-    });
+        if (lines.length < 4) {
+          // Skip malformed entries
+          return null;
+        }
+
+        const [hash, author, date, ...messageParts] = lines;
+        const message = messageParts.join('\n');
+        const typeMatch = /^(feat|fix|chore|docs|test|refactor|style|ci|build)(\(.+\))?:/i.exec(
+          message
+        );
+
+        return {
+          hash,
+          author,
+          date,
+          description: message,
+          type: typeMatch ? typeMatch[1] : 'other',
+        };
+      })
+      .filter((commit): commit is ParsedCommitType => commit !== null);
   } catch (error) {
     console.error('Failed to fetch commits:', error);
     return [];
