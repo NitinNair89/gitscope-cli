@@ -37,8 +37,19 @@ Gitscope is a lightweight CLI tool that summarizes the key features and changes 
 
 ---
 
-## 📦 Install (coming soon)
+## 📦 Install (manual)
 
 ```bash
-npm install -g gitscope
+git clone https://github.com/NitinNair89/gitscope-cli.git
+cd gitscope-cli
+npm install
+npm run build
+```
+
+---
+
+## 🏃 Usage
+
+```bash
+gitscope summary --limit 10
 ```
