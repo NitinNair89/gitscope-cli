@@ -67,4 +67,10 @@ describe('formatters/summary-builder', () => {
         '- miscellaneous changes 2 (`f7g8h9i`)'
     );
   });
+
+  it("should generate JSON summary when format is 'json'", () => {
+    const result = generateSummaries(commits, 'json');
+
+    expect(result).toEqual(JSON.stringify(commits, null, 2));
+  });
 });

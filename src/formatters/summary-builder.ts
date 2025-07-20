@@ -16,6 +16,8 @@ export function generateSummaries(
   switch (format) {
     case 'markdown':
       return generateGroupedMarkdown(commits);
+    case 'json':
+      return JSON.stringify(commits, null, 2);
     default:
       return JSON.stringify(commits, null, 2);
   }
