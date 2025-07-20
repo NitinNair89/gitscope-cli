@@ -1,4 +1,5 @@
 import { OutputFormatType, ParsedCommitType } from '../types';
+import { generateHTML } from './html';
 import { generateGroupedMarkdown } from './markdown';
 
 /**
@@ -18,6 +19,8 @@ export function generateSummaries(
       return generateGroupedMarkdown(commits);
     case 'json':
       return JSON.stringify(commits, null, 2);
+    case 'html':
+      return generateHTML(commits);
     default:
       return JSON.stringify(commits, null, 2);
   }
