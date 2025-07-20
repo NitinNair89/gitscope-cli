@@ -14,3 +14,9 @@ export type ParsedCommitType = {
   type: string;
   description: string;
 };
+
+/**
+ * Represents the output format for the summary.
+ * This type is used to specify the desired output format when generating summaries.
+ */
+export type OutputFormatType = 'html' | 'json' | 'markdown';
