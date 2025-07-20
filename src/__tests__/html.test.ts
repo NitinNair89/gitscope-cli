@@ -1,7 +1,7 @@
-import { generateSummaries } from '../formatters/summary-builder';
+import { generateHTML } from '../formatters/html';
 import { ParsedCommitType } from '../types';
 
-describe('formatters/summary-builder', () => {
+describe('formatters/html', () => {
   const commits: ParsedCommitType[] = [
     {
       type: 'chore',
@@ -45,38 +45,8 @@ describe('formatters/summary-builder', () => {
     jest.clearAllMocks();
   });
 
-  it('should return formatted Markdown and JSON output', () => {
-    const result = generateSummaries(commits);
-
-    expect(result).toBeDefined();
-  });
-
-  it("should generate Markdown summary when format is 'markdown'", () => {
-    const result = generateSummaries(commits, 'markdown');
-
-    expect(result).toEqual(
-      '## Bug\n' +
-        '- bug: resolve issue with CLI argument parsing (`a1b2c3d`)' +
-        '\n\n' +
-        '## Chore\n' +
-        '- initial scaffold for gitscope CLI with core folder structure, config, and base logic (`9912226`)' +
-        '\n\n' +
-        '## Other\n' +
-        '- miscellaneous changes 1 (`e4f5g6h`)' +
-        '\n' +
-        '- miscellaneous changes 2 (`f7g8h9i`)'
-    );
-  });
-
-  it("should generate JSON summary when format is 'json'", () => {
-    const result = generateSummaries(commits, 'json');
-
-    expect(result).toEqual(JSON.stringify(commits, null, 2));
-  });
-
-  it("should generate HTML summary when format is 'html'", () => {
-    const result = generateSummaries(commits, 'html');
-
+  it('should return formatted HTML document', () => {
+    const result = generateHTML(commits);
     expect(result).toContain('<!DOCTYPE html>');
     expect(result).toContain('<title>gitscope | HTML Report</title>');
     expect(result).toContain('<table>');
