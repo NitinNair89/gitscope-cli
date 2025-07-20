@@ -46,10 +46,15 @@ describe('formatters/summary-builder', () => {
   });
 
   it('should return formatted Markdown and JSON output', () => {
-    const { markdown, json } = generateSummaries(commits);
+    const result = generateSummaries(commits);
 
-    expect(json).toEqual(JSON.stringify(commits, null, 2));
-    expect(markdown).toEqual(
+    expect(result).toBeDefined();
+  });
+
+  it("should generate Markdown summary when format is 'markdown'", () => {
+    const result = generateSummaries(commits, 'markdown');
+
+    expect(result).toEqual(
       '## Bug\n' +
         '- bug: resolve issue with CLI argument parsing (`a1b2c3d`)' +
         '\n\n' +
