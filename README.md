@@ -1,5 +1,7 @@
 # Gitscope CLI
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/NitinNair89/gitscope-cli)
+
 **Gitscope** is a lightweight and developer-friendly CLI tool that summarizes key changes in a Git repository by analyzing structured commit history. It helps developers, teams, and stakeholders **instantly understand what’s been built**, without digging through raw logs.
 
 Supports export in **HTML**, **JSON**, and **Markdown** formats for easy integration into documentation, dashboards, or client reports.
@@ -36,9 +38,9 @@ Supports export in **HTML**, **JSON**, and **Markdown** formats for easy integra
 
 ```bash
 git clone https://github.com/NitinNair89/gitscope-cli.git
- cd gitscope-cli
- npm install
- npm run dev
+cd gitscope-cli
+npm install
+npm run dev
 ```
 
 ---
@@ -61,10 +63,11 @@ Generate reports in desired format using --output or -o:
 
 ```bash
 gitscope -l 5 -o "json"     # JSON output
- gitscope -l 5 -o "html"     # HTML output
- gitscope -l 5 -o "markdown" # Markdown output
-
+gitscope -l 5 -o "html"     # HTML output
+gitscope -l 5 -o "markdown" # Markdown output
 ```
+
+---
 
 ## 👨‍💻 Author
 
