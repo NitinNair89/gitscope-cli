@@ -12,7 +12,7 @@ program
   .description(
     'Summarize git commit history with meaningful groupings. Supports HTML, JSON and Markdown output formats.'
   )
-  .version('0.2.0')
+  .version('1.0.0')
   .option('-l, --limit <number>', 'Number of commits to include', '10')
   .option('-o, --output <type>', 'Output format: json, markdown, html', 'json')
   .action((options) => {
