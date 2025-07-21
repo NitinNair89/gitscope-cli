@@ -29,9 +29,9 @@ coverage/
 # Mac system files
 .DS_Store
 
+# Exported files
+exports/
+
 # Optional: lock files (only if you prefer not to commit them)
 # package-lock.json
 # yarn.lock
-
-# Husky
-.husky/

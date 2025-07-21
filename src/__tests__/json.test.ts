@@ -1,10 +1,10 @@
 import fs from 'fs';
-import { generateSummaries } from '../formatters/summary-builder';
+import { exportJSON } from '../core/json';
 import { ParsedCommitType } from '../types';
 
 jest.mock('fs');
 
-describe('formatters/summary-builder', () => {
+describe('core/json', () => {
   const commits: ParsedCommitType[] = [
     {
       type: 'chore',
@@ -44,6 +44,10 @@ describe('formatters/summary-builder', () => {
     },
   ];
 
+  const limit = 3;
+
+  const mockFsExistsSync = fs.existsSync as jest.Mock;
+  const mockMkdirSync = fs.mkdirSync as jest.Mock;
   const mockWriteFile = fs.writeFileSync as jest.Mock;
   const mockReadFileSync = fs.readFileSync as jest.Mock;
 
@@ -51,6 +55,8 @@ describe('formatters/summary-builder', () => {
 
   beforeEach(() => {
     consoleSpy.mockClear();
+    mockFsExistsSync.mockReturnValue(false);
+    mockMkdirSync.mockReturnValue({});
     mockWriteFile.mockReturnValue(() => {});
     mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0' }));
   });
@@ -60,42 +66,29 @@ describe('formatters/summary-builder', () => {
     consoleSpy.mockRestore();
   });
 
-  it("should generate Markdown summary when format is 'markdown'", () => {
-    const result = generateSummaries(commits, 'markdown');
+  it('should create exports directory if it does not exist', () => {
+    exportJSON(commits, limit);
 
-    expect(result).toEqual(
-      '## Bug\n' +
-        '- bug: resolve issue with CLI argument parsing (`a1b2c3d`)' +
-        '\n\n' +
-        '## Chore\n' +
-        '- initial scaffold for gitscope CLI with core folder structure, config, and base logic (`9912226`)' +
-        '\n\n' +
-        '## Other\n' +
-        '- miscellaneous changes 1 (`e4f5g6h`)' +
-        '\n' +
-        '- miscellaneous changes 2 (`f7g8h9i`)'
+    expect(mockMkdirSync).toHaveBeenCalledWith(expect.stringContaining('exports'));
+    expect(mockWriteFile).toHaveBeenCalledTimes(1);
+    expect(mockWriteFile).toHaveBeenCalledWith(
+      expect.stringContaining('gitscope-report-'),
+      expect.any(String),
+      'utf-8'
     );
+    expect(mockReadFileSync).toHaveBeenCalledTimes(1);
   });
 
-  it("should generate JSON report when format is 'json'", () => {
-    generateSummaries(commits, 'json');
+  it('should protect against overwriting existing files', () => {
+    mockFsExistsSync.mockReturnValueOnce(true).mockReturnValueOnce(true).mockReturnValueOnce(false);
+
+    exportJSON(commits, limit);
+
+    expect(mockMkdirSync).not.toHaveBeenCalled();
     expect(mockWriteFile).toHaveBeenCalledTimes(1);
-  });
+    expect(mockWriteFile).toHaveBeenCalled();
 
-  it('should generate JSON report by default when format is not provided', () => {
-    generateSummaries(commits);
-    expect(mockWriteFile).toHaveBeenCalledTimes(1);
-  });
-
-  it("should generate HTML summary when format is 'html'", () => {
-    const result = generateSummaries(commits, 'html');
-
-    expect(result).toContain('<!DOCTYPE html>');
-    expect(result).toContain('<title>gitscope | HTML Report</title>');
-    expect(result).toContain('<table>');
-    expect(result).toContain('<td><code>9912226</code></td>');
-    expect(result).toContain('<td>John Doe</td>');
-    expect(result).toContain('<td>2023-10-01T12:00:00Z</td>');
-    expect(result).toContain('<td>chore</td>');
+    const filePath = mockWriteFile.mock.calls[0][0];
+    expect(filePath).toMatch(/gitscope-report.*-1\.json$/);
   });
 });

@@ -5,15 +5,18 @@ import { OutputFormatType } from '../types';
 /**
  * Generates a summary of the latest git commits.
  * This function retrieves the latest commits and logs them in a readable format.
+ *
  * @param limit Number of commits to summarize
  * @param format Desired output format (default is 'json')
+ *
+ * @returns {void}
  *
  * @example
  * generateSummary(10, 'json');
  */
-export function generateSummary(limit: number, format: OutputFormatType = 'json'): void {
+export function generateSummary(limit: number = 10, format: OutputFormatType = 'json'): void {
   console.log(`Generating summary of last ${limit} commits in ${format} format...`);
   const commits = getCommits(limit);
-  const summary = generateSummaries(commits, format);
-  console.log('Summary:\n', summary);
+  generateSummaries(commits, format, limit);
+  console.log('Summary generation complete.');
 }
