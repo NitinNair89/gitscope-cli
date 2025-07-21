@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)  
+Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+
+---
+
+## [Unreleased]
+
+### ✨ Added
+
+- JSON export with filename format `gitscope-report-YYYYMMDDHH.json`
+- Metadata and commit summary included in exported JSON
+
 ---
 
 ## [1.0.0] - 2025-07-20
@@ -43,15 +55,6 @@ git clone https://github.com/NitinNair89/gitscope-cli.git
  npm install
  npm run dev
 ```
-
----
-
-### 🗺️ Roadmap
-
-- PDF export
-- `--since` and `--until` date filters
-- NPM package publish
-- CI/CD for releases
 
 ---
 
