@@ -69,6 +69,19 @@ gitscope -l 5 -o "markdown" # Markdown output
 
 ---
 
+## 📌 Roadmap
+
+- ✅ JSON summary export with metadata (Sprint 1)
+- 📝 Markdown summary export (Sprint 2)
+- 📄 HTML summary export (Sprint 2)
+- 🧠 Smart summary generator (WIP)
+- 📊 Recruiter view + CLI analytics summary (Sprint 3)
+- 🔐 CLI authentication with GitHub (Sprint 4)
+- 🧰 Plugin system for custom formatting/output (Sprint 5)
+- 🌐 SaaS companion web app (standalone, post-v2.0)
+
+---
+
 ## 👨‍💻 Author
 
 Built with ❤️ by Nitin Nair
