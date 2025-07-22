@@ -12,7 +12,7 @@ import { ParsedCommitType } from '../types';
  * @param {ParsedCommitType[]} commits Array of commit objects to export as JSON
  * @param {string} limit Optional limit for the number of commits to include in the export
  *
- * @returns {void}
+ * @returns {void} This function does not return a value; it writes the JSON content to a file.
  *
  * @example
  * exportJSON(commits, 10);
