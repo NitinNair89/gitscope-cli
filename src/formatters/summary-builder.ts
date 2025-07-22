@@ -1,7 +1,7 @@
-import { exportJSON } from '../core/json';
 import { OutputFormatType, ParsedCommitType } from '../types';
 import { generateHTML } from './html';
-import { generateGroupedMarkdown } from './markdown';
+import { exportJSON } from './json';
+import { exportMarkdown } from './markdown';
 
 /**
  * Generates Markdown and JSON summary from parsed commits.
@@ -21,7 +21,8 @@ export function generateSummaries(
 ): string | void {
   switch (format) {
     case 'markdown':
-      return generateGroupedMarkdown(commits);
+      exportMarkdown(commits, limit);
+      break;
 
     case 'json':
       exportJSON(commits, limit);

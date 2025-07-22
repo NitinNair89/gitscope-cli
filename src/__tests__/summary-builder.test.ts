@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { generateSummaries } from '../formatters/summary-builder';
-import { ParsedCommitType } from '../types';
+import { OutputFormatType, ParsedCommitType } from '../types';
 
 jest.mock('fs');
 
@@ -60,27 +60,13 @@ describe('formatters/summary-builder', () => {
     consoleSpy.mockRestore();
   });
 
-  it("should generate Markdown summary when format is 'markdown'", () => {
-    const result = generateSummaries(commits, 'markdown');
-
-    expect(result).toEqual(
-      '## Bug\n' +
-        '- bug: resolve issue with CLI argument parsing (`a1b2c3d`)' +
-        '\n\n' +
-        '## Chore\n' +
-        '- initial scaffold for gitscope CLI with core folder structure, config, and base logic (`9912226`)' +
-        '\n\n' +
-        '## Other\n' +
-        '- miscellaneous changes 1 (`e4f5g6h`)' +
-        '\n' +
-        '- miscellaneous changes 2 (`f7g8h9i`)'
-    );
-  });
-
-  it("should generate JSON report when format is 'json'", () => {
-    generateSummaries(commits, 'json');
-    expect(mockWriteFile).toHaveBeenCalledTimes(1);
-  });
+  it.each(['json', 'markdown'])(
+    "should generate Markdown summary when format is 'markdown'",
+    (format) => {
+      generateSummaries(commits, format as OutputFormatType);
+      expect(mockWriteFile).toHaveBeenCalledTimes(1);
+    }
+  );
 
   it('should generate JSON report by default when format is not provided', () => {
     generateSummaries(commits);
