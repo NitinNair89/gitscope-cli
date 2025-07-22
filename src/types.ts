@@ -20,3 +20,16 @@ export type ParsedCommitType = {
  * This type is used to specify the desired output format when generating summaries.
  */
 export type OutputFormatType = 'html' | 'json' | 'markdown';
+
+/**
+ * Represents metadata for export operations.
+ * This type includes the base name for the export file, the directory where exports are saved,
+ * and a timestamp for when the export was generated.
+ *
+ * @property {string} baseName - The base name for the export file, typically includes a timestamp.
+ * @property {string} exportDir - The directory where export files are saved.
+ */
+export type ExportMetadataType = {
+  baseName: string;
+  exportDir: string;
+};

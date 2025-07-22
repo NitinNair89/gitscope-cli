@@ -1,10 +1,10 @@
 import fs from 'fs';
-import { exportJSON } from '../core/json';
+import { exportJSON } from '../formatters/json';
 import { ParsedCommitType } from '../types';
 
 jest.mock('fs');
 
-describe('core/json', () => {
+describe('formatters/json', () => {
   const commits: ParsedCommitType[] = [
     {
       type: 'chore',

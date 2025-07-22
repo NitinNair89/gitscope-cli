@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import { getExportMetadata, getPackageVersion } from '../core/meta';
 import { ParsedCommitType } from '../types';
-import { getPackageVersion } from './meta';
 
 /**
  * Exports commit data as a JSON file.
@@ -12,17 +12,13 @@ import { getPackageVersion } from './meta';
  * @param {ParsedCommitType[]} commits Array of commit objects to export as JSON
  * @param {string} limit Optional limit for the number of commits to include in the export
  *
- * @returns {void}
+ * @returns {void} This function does not return a value; it writes the JSON content to a file.
  *
  * @example
  * exportJSON(commits, 10);
  */
 export function exportJSON(commits: ParsedCommitType[], limit?: number): void {
-  const timestamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 13);
-  const baseName = `gitscope-report-${timestamp}`;
-  const exportDir = path.join(process.cwd(), 'exports');
-
-  if (!fs.existsSync(exportDir)) fs.mkdirSync(exportDir);
+  const { baseName, exportDir } = getExportMetadata();
 
   let filePath = path.join(exportDir, `${baseName}.json`);
   let counter = 1;
