@@ -1,5 +1,8 @@
-import { generateHTML } from '../formatters/html';
+import fs from 'fs';
+import { exportHTML } from '../formatters/html';
 import { ParsedCommitType } from '../types';
+
+jest.mock('fs');
 
 describe('formatters/html', () => {
   const commits: ParsedCommitType[] = [
@@ -41,18 +44,51 @@ describe('formatters/html', () => {
     },
   ];
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  const limit = 3;
+
+  const mockFsExistsSync = fs.existsSync as jest.Mock;
+  const mockMkdirSync = fs.mkdirSync as jest.Mock;
+  const mockWriteFile = fs.writeFileSync as jest.Mock;
+  const mockReadFileSync = fs.readFileSync as jest.Mock;
+
+  const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+  beforeEach(() => {
+    consoleSpy.mockClear();
+    mockFsExistsSync.mockReturnValue(false);
+    mockMkdirSync.mockReturnValue({});
+    mockWriteFile.mockReturnValue(() => {});
+    mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0' }));
   });
 
-  it('should return formatted HTML document', () => {
-    const result = generateHTML(commits);
-    expect(result).toContain('<!DOCTYPE html>');
-    expect(result).toContain('<title>gitscope | HTML Report</title>');
-    expect(result).toContain('<table>');
-    expect(result).toContain('<td><code>9912226</code></td>');
-    expect(result).toContain('<td>John Doe</td>');
-    expect(result).toContain('<td>2023-10-01T12:00:00Z</td>');
-    expect(result).toContain('<td>chore</td>');
+  afterEach(() => {
+    jest.clearAllMocks();
+    consoleSpy.mockRestore();
+  });
+
+  it('should create exports directory if it does not exist', () => {
+    exportHTML(commits, limit);
+
+    expect(mockMkdirSync).toHaveBeenCalledWith(expect.stringContaining('exports'));
+    expect(mockWriteFile).toHaveBeenCalledTimes(1);
+    expect(mockWriteFile).toHaveBeenCalledWith(
+      expect.stringContaining('gitscope-report-'),
+      expect.any(String),
+      'utf-8'
+    );
+    expect(mockReadFileSync).toHaveBeenCalledTimes(1);
+  });
+
+  it('should protect against overwriting existing files', () => {
+    mockFsExistsSync.mockReturnValueOnce(true).mockReturnValueOnce(true).mockReturnValueOnce(false);
+
+    exportHTML(commits, limit);
+
+    expect(mockMkdirSync).not.toHaveBeenCalled();
+    expect(mockWriteFile).toHaveBeenCalledTimes(1);
+    expect(mockWriteFile).toHaveBeenCalled();
+
+    const filePath = mockWriteFile.mock.calls[0][0];
+    expect(filePath).toMatch(/gitscope-report.*-1\.json$/);
   });
 });
