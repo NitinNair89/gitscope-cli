@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { getExportMetadata, getPackageVersion } from '../core/meta';
+import { getExportMetadata, getPackageDetails } from '../core/meta';
 import { ParsedCommitType } from '../types';
 
 /**
@@ -26,11 +26,13 @@ export function exportJSON(commits: ParsedCommitType[], limit?: number): void {
     filePath = path.join(exportDir, `${baseName}-${counter++}.json`);
   }
 
+  const { version, title } = getPackageDetails();
+
   const jsonPayload = {
     metadata: {
-      repository: 'gitscope-cli',
-      version: getPackageVersion(),
-      branch: 'main', // Future: Enhance with actual branch detection
+      repository: title,
+      version,
+      branch: 'main',
       generated_at: new Date().toISOString(),
     },
     summary: {
