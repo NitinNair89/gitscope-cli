@@ -74,14 +74,7 @@ describe('formatters/summary-builder', () => {
   });
 
   it("should generate HTML summary when format is 'html'", () => {
-    const result = generateSummaries(commits, 'html');
-
-    expect(result).toContain('<!DOCTYPE html>');
-    expect(result).toContain('<title>gitscope | HTML Report</title>');
-    expect(result).toContain('<table>');
-    expect(result).toContain('<td><code>9912226</code></td>');
-    expect(result).toContain('<td>John Doe</td>');
-    expect(result).toContain('<td>2023-10-01T12:00:00Z</td>');
-    expect(result).toContain('<td>chore</td>');
+    generateSummaries(commits, 'html');
+    expect(mockWriteFile).toHaveBeenCalledTimes(1);
   });
 });

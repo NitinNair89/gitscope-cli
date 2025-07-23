@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { getExportMetadata, getPackageVersion } from '../core/meta';
+import { getExportMetadata, getPackageDetails } from '../core/meta';
 
 jest.mock('fs');
 
@@ -9,7 +9,7 @@ describe('core/meta', () => {
   const mockExistsSync = fs.existsSync as jest.Mock;
 
   beforeEach(() => {
-    mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0' }));
+    mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0', name: 'gitscope' }));
     mockExistsSync.mockReturnValue(true);
   });
 
@@ -17,16 +17,16 @@ describe('core/meta', () => {
     jest.clearAllMocks();
   });
 
-  it('should retrieve the package version from package.json', () => {
-    const version = getPackageVersion();
+  it('should retrieve the package version and name from package.json', () => {
+    const { version, title } = getPackageDetails();
     expect(version).toBeDefined();
-    expect(typeof version).toBe('string');
+    expect(title).toBeDefined();
     expect(version).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
   it("should set default version to '0.0.0' if package file is not found", () => {
     mockReadFileSync.mockReturnValue(JSON.stringify({}));
-    const version = getPackageVersion();
+    const { version } = getPackageDetails();
     expect(version).toBe('0.0.0');
   });
 

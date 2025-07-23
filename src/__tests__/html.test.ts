@@ -58,7 +58,7 @@ describe('formatters/html', () => {
     mockFsExistsSync.mockReturnValue(false);
     mockMkdirSync.mockReturnValue({});
     mockWriteFile.mockReturnValue(() => {});
-    mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0' }));
+    mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0', name: 'gitscope' }));
   });
 
   afterEach(() => {
@@ -89,6 +89,6 @@ describe('formatters/html', () => {
     expect(mockWriteFile).toHaveBeenCalled();
 
     const filePath = mockWriteFile.mock.calls[0][0];
-    expect(filePath).toMatch(/gitscope-report.*-1\.json$/);
+    expect(filePath).toMatch(/gitscope-report.*-1\.html$/);
   });
 });
