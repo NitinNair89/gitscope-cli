@@ -1,5 +1,5 @@
 import { OutputFormatType, ParsedCommitType } from '../types';
-import { generateHTML } from './html';
+import { exportHTML } from './html';
 import { exportJSON } from './json';
 import { exportMarkdown } from './markdown';
 
@@ -29,6 +29,6 @@ export function generateSummaries(
       break;
 
     case 'html':
-      return generateHTML(commits);
+      exportHTML(commits, limit);
   }
 }

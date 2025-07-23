@@ -33,3 +33,28 @@ export type ExportMetadataType = {
   baseName: string;
   exportDir: string;
 };
+
+/**
+ * Represents the details of a package.
+ * This type includes the version and name of the package,
+ * which is used for metadata in exports.
+ *
+ * @property {string} version - The version of the package from package.json.
+ * @property {string} title - The name of the package from package.json.
+ */
+export type PackageDetailsType = {
+  version: string;
+  title: string;
+};
+
+/**
+ * Represents a parsed commit message.
+ * This type is used to extract the type and description from a commit message.
+ *
+ * @property {string} type - The type of the commit (e.g., feat, fix, chore).
+ * @property {string} description - The description of the commit message.
+ */
+export type ParsedCommitMessageType = {
+  type: string;
+  description: string;
+};

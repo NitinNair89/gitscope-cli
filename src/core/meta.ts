@@ -1,20 +1,20 @@
 import fs, { readFileSync } from 'fs';
 import path from 'path';
-import { ExportMetadataType } from '../types';
+import { ExportMetadataType, PackageDetailsType, ParsedCommitMessageType } from '../types';
 
 /**
- * Retrieves the package version from package.json.
+ * Retrieves the package name and version from package.json.
  * If the version is not defined, it defaults to '0.0.0'.
  *
- * @returns {string} The version of the package.
+ * @returns {PackageDetailsType} An object containing the package name and version.
  *
  * @example
- * const version = getPackageVersion();
+ * const {version, title } = getPackageDetails();
  */
-export const getPackageVersion = (): string => {
+export const getPackageDetails = (): PackageDetailsType => {
   const pkgPath = path.join(process.cwd(), 'package.json');
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
-  return pkg.version || '0.0.0';
+  return { version: pkg.version || '0.0.0', title: pkg.name };
 };
 
 /**
@@ -35,4 +35,27 @@ export const getExportMetadata = (): ExportMetadataType => {
   if (!fs.existsSync(exportDir)) fs.mkdirSync(exportDir);
 
   return { baseName, exportDir };
+};
+
+/**
+ * Parses a commit message to extract the type and description.
+ * The type is the first word before a colon, and the description is the rest of the
+ * message.
+ *
+ * @param {string} message The commit message to parse.
+ *
+ * @returns {ParsedCommitMessageType} An object containing the type and description of the commit.
+ */
+export const parseCommitMessage = (message: string): ParsedCommitMessageType => {
+  const match = /^(\w+)(\(.+\))?:\s(.+)$/.exec(message);
+  if (match) {
+    return {
+      type: match[1],
+      description: match[3],
+    };
+  }
+  return {
+    type: 'other',
+    description: message,
+  };
 };

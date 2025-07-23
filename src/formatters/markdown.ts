@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { getExportMetadata, getPackageVersion } from '../core/meta';
+import { getExportMetadata, getPackageDetails } from '../core/meta';
 import { ParsedCommitType } from '../types';
 
 /**
@@ -68,9 +68,11 @@ export function exportMarkdown(commits: ParsedCommitType[], limit?: number): voi
     filePath = path.join(exportDir, `${baseName}-${counter++}.md`);
   }
 
+  const { version, title } = getPackageDetails();
+
   const header = `# GitScope CLI Report
-**Repository**: gitscope-cli  
-**Version**: ${getPackageVersion()}  
+**Repository**: ${title} 
+**Version**: ${version}  
 **Branch**: main  
 **Generated at**: ${new Date().toISOString()}  
 
