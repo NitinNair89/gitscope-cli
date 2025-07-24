@@ -1,0 +1,53 @@
+name: Auto PR from feature branches
+
+on:
+  push:
+    branches:
+      - 'ENGG-*'
+
+jobs:
+  create-auto-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all branches
+        run: |
+          git fetch origin main
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch main branch for comparison
+          git fetch origin main
+
+          # Check if there are commits unique to this branch
+          COMMITS=$(git rev-list origin/main..HEAD)
+          if [ -z "$COMMITS" ] || [ "$COMMITS" = "" ]; then
+            echo "ℹ️ No new commits to create a PR for. Skipping."
+            exit 0
+          fi
+
+          # Check if a PR already exists for this branch
+          PR_EXISTS=$(gh pr list --head "${GITHUB_REF_NAME}" --state open --json number --jq '.[0].number')
+
+          if [ -z "$PR_EXISTS" ]; then
+            gh pr create \
+              --base main \
+              --head "${GITHUB_REF_NAME}" \
+              --title "${GITHUB_REF_NAME}" \
+              --body "This PR was automatically created from the \`${GITHUB_REF_NAME}\` branch."
+            echo "✅ Pull request created for branch ${GITHUB_REF_NAME}. Review the changes and merge when ready."
+          else
+            echo "ℹ️ A pull request already exists for branch ${GITHUB_REF_NAME}. Skipping creation."
+          fi
