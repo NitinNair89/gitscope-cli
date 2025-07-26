@@ -10,11 +10,12 @@ Supports export in **HTML**, **JSON**, and **Markdown** formats for easy integra
 
 ## 🚀 Features
 
-- 🔍 Parse and summarize Git commit history from any local repo
-- 🧠 Auto-detect conventional commit types (`feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `style`, `ci`, `build`)
-- 📊 Group commits by category and generate clean summaries
-- 📁 Export reports in `HTML`, `JSON`, or `Markdown`
-- 💻 Designed for fast, CLI-native use
+- Parse and summarize Git commit history from any local repo
+- Auto-detect conventional commit types (`feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `style`, `ci`, `build`)
+- Group commits by category and generate clean summaries
+- Export reports in `HTML`, `JSON`, or `Markdown`
+- Inline HTML styling for easy printing
+- Designed for fast, CLI-native use
 
 ---
 
@@ -34,13 +35,10 @@ Supports export in **HTML**, **JSON**, and **Markdown** formats for easy integra
 
 ---
 
-## 📦 Installation (Manual)
+## 📦 Installation
 
 ```bash
-git clone https://github.com/NitinNair89/gitscope-cli.git
-cd gitscope-cli
-npm install
-npm run dev
+npm i -g gitscope-cli
 ```
 
 ---
@@ -69,16 +67,11 @@ gitscope -l 5 -o "markdown" # Markdown output
 
 ---
 
-## 📌 Roadmap
+🧪 Testing
 
-- ✅ JSON summary export with metadata (Sprint 1)
-- 📝 Markdown summary export (Sprint 2)
-- 📄 HTML summary export (Sprint 2)
-- 🧠 Smart summary generator (WIP)
-- 📊 Recruiter view + CLI analytics summary (Sprint 3)
-- 🔐 CLI authentication with GitHub (Sprint 4)
-- 🧰 Plugin system for custom formatting/output (Sprint 5)
-- 🌐 SaaS companion web app (standalone, post-v2.0)
+```bash
+npm test
+```
 
 ---
 

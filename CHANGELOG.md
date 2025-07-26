@@ -7,12 +7,16 @@ Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 ---
 
-## [Unreleased]
+## [1.1.0] - 2025-07-26
 
-### ✨ Added
+### ✨ New Features
 
-- JSON export with filename format `gitscope-report-YYYYMMDDHH.json`
-- Metadata and commit summary included in exported JSON
+- Added `markdown`, `html`, and `json` export formats
+- Dynamic injection of title and version metadata
+
+### 📈 Improvements
+
+- Styled HTML output with print support
 
 ---
 
