@@ -5,6 +5,10 @@ on:
     branches:
       - 'ENGG-*'
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   create-auto-pr:
     runs-on: ubuntu-latest
