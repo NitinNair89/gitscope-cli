@@ -30,7 +30,7 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
-    "dev": "npm run build && node dist/bin/gitscope.js",
+    "dev": "npm run build && node ./dist/bin/gitscope.js",
     "format": "prettier --write .",
     "test": "jest --coverage",
     "clean": "rimraf dist",

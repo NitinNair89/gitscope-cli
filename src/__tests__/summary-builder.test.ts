@@ -47,17 +47,13 @@ describe('formatters/summary-builder', () => {
   const mockWriteFile = fs.writeFileSync as jest.Mock;
   const mockReadFileSync = fs.readFileSync as jest.Mock;
 
-  const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-
   beforeEach(() => {
-    consoleSpy.mockClear();
     mockWriteFile.mockReturnValue(() => {});
     mockReadFileSync.mockReturnValue(JSON.stringify({ version: '1.0.0' }));
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    consoleSpy.mockRestore();
   });
 
   it.each(['json', 'markdown'])(

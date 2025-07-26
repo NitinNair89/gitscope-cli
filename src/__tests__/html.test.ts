@@ -51,10 +51,7 @@ describe('formatters/html', () => {
   const mockWriteFile = fs.writeFileSync as jest.Mock;
   const mockReadFileSync = fs.readFileSync as jest.Mock;
 
-  const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-
   beforeEach(() => {
-    consoleSpy.mockClear();
     mockFsExistsSync.mockReturnValue(false);
     mockMkdirSync.mockReturnValue({});
     mockWriteFile.mockReturnValue(() => {});
@@ -63,7 +60,6 @@ describe('formatters/html', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    consoleSpy.mockRestore();
   });
 
   it('should create exports directory if it does not exist', () => {
