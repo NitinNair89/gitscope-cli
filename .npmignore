@@ -1,0 +1,13 @@
+# .npmignore
+bin/
+src/
+tests/
+*.json
+*.ts
+*.mjs
+*.map
+.eslintrc.js
+tsconfig.json
+.esbuild.config.mjs
+exports/
+.github/

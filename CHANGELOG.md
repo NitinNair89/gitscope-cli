@@ -7,6 +7,17 @@ Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 ---
 
+## [1.1.1] - 2025-07-28
+
+### 📈 Improvements
+
+- Introduced esbuild to bundle CLI into a single output file
+- Ensured only minimal, essential files are included in npm tarball
+
+---
+
+---
+
 ## [1.1.0] - 2025-07-26
 
 ### ✨ New Features
