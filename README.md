@@ -2,18 +2,15 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/NitinNair89/gitscope-cli) ![GitHub Repo stars](https://img.shields.io/github/stars/NitinNair89/gitscope-cli?style=social) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NitinNair89/gitscope-cli)
 
-
 A fast, focused CLI tool to extract meaningful GitHub repo insights — built for developers who want to highlight contribution value, project health, and portfolio-readiness in seconds.
 
-> Version: v1.1.0 | Author: [@NitinNair89](https://github.com/NitinNair89)
-
+> Version: v1.1.1 | Author: [@NitinNair89](https://github.com/NitinNair89)
 
 ---
 
 <!-- GitHub SEO -->
 <!-- keywords: gitscope, git summary tool, changelog generator, CLI git report, conventional commits, git html report, markdown changelog -->
 <!-- description: gitscope-cli is a terminal-native tool that parses and summarizes Git commit history into clean changelogs. Supports export to HTML, JSON, and Markdown. -->
-
 
 ## 🚀 Features
 
