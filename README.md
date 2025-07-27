@@ -1,21 +1,28 @@
 # Gitscope CLI
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/NitinNair89/gitscope-cli)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/NitinNair89/gitscope-cli) ![GitHub Repo stars](https://img.shields.io/github/stars/NitinNair89/gitscope-cli?style=social) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NitinNair89/gitscope-cli)
 
-**Gitscope** is a lightweight and developer-friendly CLI tool that summarizes key changes in a Git repository by analyzing structured commit history. It helps developers, teams, and stakeholders **instantly understand what’s been built**, without digging through raw logs.
 
-Supports export in **HTML**, **JSON**, and **Markdown** formats for easy integration into documentation, dashboards, or client reports.
+A fast, focused CLI tool to extract meaningful GitHub repo insights — built for developers who want to highlight contribution value, project health, and portfolio-readiness in seconds.
+
+> Version: v1.1.0 | Author: [@NitinNair89](https://github.com/NitinNair89)
+
 
 ---
 
+<!-- GitHub SEO -->
+<!-- keywords: gitscope, git summary tool, changelog generator, CLI git report, conventional commits, git html report, markdown changelog -->
+<!-- description: gitscope-cli is a terminal-native tool that parses and summarizes Git commit history into clean changelogs. Supports export to HTML, JSON, and Markdown. -->
+
+
 ## 🚀 Features
 
-- Parse and summarize Git commit history from any local repo
-- Auto-detect conventional commit types (`feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `style`, `ci`, `build`)
-- Group commits by category and generate clean summaries
-- Export reports in `HTML`, `JSON`, or `Markdown`
-- Inline HTML styling for easy printing
-- Designed for fast, CLI-native use
+- Summarizes Git commit history from any local repository using a single CLI command
+- Auto-detects [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `style`, `ci`, `build`
+- Groups commits by category with clean markdown-style formatting
+- Exports commit summaries to `HTML`, `JSON`, or `Markdown` formats
+- Outputs self-contained HTML with inline styling for direct printing or sharing
+- Built for speed and terminal-native usage, ideal for daily dev workflows and reporting needs
 
 ---
 
@@ -23,7 +30,9 @@ Supports export in **HTML**, **JSON**, and **Markdown** formats for easy integra
 
 - ✅ Auto-generate changelogs for product releases
 - ✅ Share concise feature updates with clients or team leads
-- ✅ Power internal dashboards, progress digests, or project audits
+- ✅ Generate commit-based summaries for dashboards, digests, or audits
+- ✅ Document code contributions clearly across any project
+- ✅ Simplify reporting workflows with zero manual formatting
 
 ---
 
@@ -67,11 +76,14 @@ gitscope -l 5 -o "markdown" # Markdown output
 
 ---
 
-🧪 Testing
+## 🧪 Testing
 
 ```bash
 npm test
 ```
+
+- ✅ Uses built-in test runner to validate core CLI functionality.
+- ✅ Ensure all dependencies are installed before running tests.
 
 ---
 
