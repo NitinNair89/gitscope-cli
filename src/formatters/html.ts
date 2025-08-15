@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getExportMetadata, getPackageDetails, parseCommitMessage } from '../core/meta';
 import { ParsedCommitType } from '../types';
+import { getDefaultStyles, getTypeColor } from './html-styler';
 
 export function exportHTML(commits: ParsedCommitType[], limit?: number): void {
   const { baseName, exportDir } = getExportMetadata();
@@ -19,7 +20,10 @@ export function exportHTML(commits: ParsedCommitType[], limit?: number): void {
   });
 
   const overviewParts: string[] = [];
-  if (commitTypes.get('feat')) overviewParts.push(`${commitTypes.get('feat')} features released`);
+  if (commitTypes.get('release'))
+    overviewParts.push(`${commitTypes.get('release')} release(s) made`);
+  if (commitTypes.get('feat'))
+    overviewParts.push(`${commitTypes.get('feat')} features implemented`);
   if (commitTypes.get('fix')) overviewParts.push(`${commitTypes.get('fix')} bugs fixed`);
   if (commitTypes.get('docs')) overviewParts.push(`documentation updated`);
   if (commitTypes.get('test')) overviewParts.push(`improved code quality`);
@@ -43,67 +47,7 @@ export function exportHTML(commits: ParsedCommitType[], limit?: number): void {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GitScope Report -  ${timestamp}</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 2rem;
-      background-color: #ffffff;
-      color: #111827;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #0f172a;
-        color: #f8fafc;
-      }
-    }
-
-    h1, h2 {
-      color: #2563eb;
-    }
-
-    section {
-      margin-bottom: 2rem;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    th, td {
-      padding: 0.75rem;
-      border: 1px solid #e5e7eb;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f1f5f9;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      th {
-        background-color: #1e293b;
-        color: #f8fafc;
-      }
-
-      td {
-        border-color: #334155;
-      }
-    }
-
-    .tag {
-      font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      color: #ffffff;
-      font-weight: bold;
-      display: inline-block;
-    }
-  </style>
+  ${getDefaultStyles()}
 </head>
 <body>
   <header>
@@ -146,14 +90,12 @@ const getMetadata = (length: number, overview: string): string => {
   const { version, title } = getPackageDetails();
 
   return `
-    <section class="metadata">
     <ul>
       <li><strong>Repository:</strong> ${title}</li>
       <li><strong>Version:</strong> ${version}</li>
       <li><strong>Total Commits:</strong> ${length}</li>
       <li><strong>Overview:</strong> ${overview}</li>
     </ul>
-    </section>
   `;
 };
 
@@ -191,18 +133,4 @@ const getTableRows = (commits: ParsedCommitType[]) => {
 const getCommitType = (message: string): string => {
   const match = /^(\w+)(\(.+\))?!?:/.exec(message);
   return match ? match[1] : 'other';
-};
-
-const getTypeColor = (type: string): string => {
-  const colors: Record<string, string> = {
-    feat: '#16a34a',
-    fix: '#eab308',
-    docs: '#3b82f6',
-    chore: '#64748b',
-    refactor: '#a855f7',
-    test: '#f97316',
-    style: '#0ea5e9',
-    other: '#9ca3af',
-  };
-  return colors[type.toLowerCase()] || '#9ca3af';
 };
