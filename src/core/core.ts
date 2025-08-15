@@ -1,5 +1,5 @@
 import { generateSummaries } from '../formatters/summary-builder';
-import { getCommits } from '../services/git-service';
+import { branchExists, getCommits } from '../services/git-service';
 import { OutputFormatType } from '../types';
 
 /**
@@ -14,9 +14,18 @@ import { OutputFormatType } from '../types';
  * @example
  * generateSummary(10, 'json');
  */
-export function generateSummary(limit: number = 10, format: OutputFormatType = 'json'): void {
+export function generateSummary(
+  limit: number = 10,
+  format: OutputFormatType = 'json',
+  branch: string = ''
+): void {
+  if (branch.length > 0 && !branchExists(branch)) {
+    console.error(`Error: Branch '${branch}' does not exist in this repository.`);
+    return;
+  }
+
   console.log(`Generating summary of last ${limit} commits in ${format} format...`);
-  const commits = getCommits(limit);
+  const commits = getCommits(limit, branch);
   generateSummaries(commits, format, limit);
   console.log('Summary generation complete.');
 }

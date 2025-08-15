@@ -6,11 +6,25 @@ import { ParsedCommitType } from '../types';
  * @param limit Number of commits to retrieve
  * @returns {ParsedCommitType[]} Array of parsed commit objects
  */
-export function getCommits(limit: number): ParsedCommitType[] {
+export function getCommits(limit: number, branch: string): ParsedCommitType[] {
+  let defaultBranch;
   try {
-    const raw = execSync(`git log --no-merges -${limit} --pretty=format:"===%n%H%n%an%n%ad%n%s"`, {
-      encoding: 'utf-8',
-    });
+    defaultBranch = execSync('git symbolic-ref refs/remotes/origin/HEAD', { encoding: 'utf-8' })
+      .trim()
+      .replace('refs/remotes/origin/', '');
+  } catch {
+    defaultBranch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+  }
+
+  try {
+    const targetBranch = branch ? `${defaultBranch}..${branch}` : '';
+
+    const raw = execSync(
+      `git log ${targetBranch} --no-merges -${limit} --pretty=format:"===%n%H%n%an%n%ad%n%s"`,
+      {
+        encoding: 'utf-8',
+      }
+    );
 
     const entries = raw
       .split('===')
@@ -46,3 +60,12 @@ export function getCommits(limit: number): ParsedCommitType[] {
     return [];
   }
 }
+
+export const branchExists = (branch: string) => {
+  try {
+    execSync(`git rev-parse --verify ${branch}`, { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+};
