@@ -15,9 +15,11 @@ program
   .version('1.0.0')
   .option('-l, --limit <number>', 'Number of commits to include', '10')
   .option('-o, --output <type>', 'Output format: json, markdown, html', 'json')
+  .option('-b, --branch <name>', 'Branch to fetch commits from')
   .action((options) => {
     const limit = parseInt(options.limit);
     const output = options.output;
+    const branch = options.branch;
 
     if (!validOutputs.includes(output)) {
       console.error(`Invalid output format. Choose one of: ${validOutputs.join(', ')}`);
@@ -29,7 +31,7 @@ program
       process.exit(1);
     }
 
-    generateSummary(limit, output);
+    generateSummary(limit, output, branch);
   });
 
 program.parse(process.argv);
