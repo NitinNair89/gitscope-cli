@@ -36,7 +36,6 @@
     "format": "prettier --write .",
     "test": "jest --coverage",
     "clean": "rimraf dist",
-    "prepare": "npm run build",
     "prepack": "npm run clean && npm run build"
   },
   "lint-staged": {
