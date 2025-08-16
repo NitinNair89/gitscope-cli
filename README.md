@@ -4,7 +4,7 @@
 
 A fast, focused CLI tool to extract meaningful GitHub repo insights — built for developers who want to highlight contribution value, project health, and portfolio-readiness in seconds.
 
-> Version: v1.1.1 | Author: [@NitinNair89](https://github.com/NitinNair89)
+> Version: v1.2.0 | Author: [@NitinNair89](https://github.com/NitinNair89)
 
 ---
 
@@ -57,18 +57,24 @@ Summarize the most recent commits (default: last 10):
 gitscope
 ```
 
-Customize the number of commits with --limit or -l:
+Customize the number of commits with `--limit` or `-l`:
 
 ```bash
 gitscope -l 5
 ```
 
-Generate reports in desired format using --output or -o:
+Generate reports in desired format using `--output` or `-o`:
 
 ```bash
 gitscope -l 5 -o "json"     # JSON output
 gitscope -l 5 -o "html"     # HTML output
 gitscope -l 5 -o "markdown" # Markdown output
+```
+
+Use `--branch` or `-b` to generate reports for a specific branch.
+
+```bash
+gitscope -l 5 -b main
 ```
 
 ---

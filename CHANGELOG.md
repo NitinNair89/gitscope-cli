@@ -7,6 +7,15 @@ Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 ---
 
+## [1.2.0] - 2025-08-16
+
+### ✨ New Features
+
+- Add `--branch` / `-b` flag to generate reports for specific branches
+- Ensures commits are specific to the branch provided as argument
+
+---
+
 ## [1.1.1] - 2025-07-28
 
 ### 📈 Improvements
