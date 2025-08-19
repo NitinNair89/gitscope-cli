@@ -1,6 +1,6 @@
 {
   "name": "gitscope-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A lightweight CLI to summarize Git commit history into readable changelogs (HTML, JSON, Markdown).",
   "bin": {
     "gitscope": "./dist/bin/gitscope.js"
@@ -66,6 +66,6 @@
     "typescript-eslint": "^8.37.0"
   },
   "dependencies": {
-    "commander": "^14.0.0"
+    "mri": "^1.2.0"
   }
 }

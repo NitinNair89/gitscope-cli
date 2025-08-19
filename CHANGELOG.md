@@ -7,6 +7,16 @@ Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 ---
 
+## [1.2.1] - 2025-08-19
+
+### 📈 Improvements
+
+- Replaced `commander` with `mri` for argument parsing
+- Reduced bundle size
+- Add `--help` / `-h` flag to show available options
+
+---
+
 ## [1.2.0] - 2025-08-16
 
 ### ✨ New Features

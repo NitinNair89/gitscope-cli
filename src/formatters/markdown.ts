@@ -57,7 +57,7 @@ function generateGroupedMarkdown(commits: ParsedCommitType[]): string {
  * @returns {void} This function does not return a value; it writes the Markdown content to a file.
  *
  * @example
- * exportMarkdown(commits, 10);
+ * exportMarkdown(commits, 30);
  */
 export function exportMarkdown(commits: ParsedCommitType[], limit?: number): void {
   const { baseName, exportDir } = getExportMetadata();
