@@ -12,10 +12,10 @@ import { OutputFormatType } from '../types';
  * @returns {void}
  *
  * @example
- * generateSummary(10, 'json');
+ * generateSummary(30, 'json');
  */
 export function generateSummary(
-  limit: number = 10,
+  limit: number = 30,
   format: OutputFormatType = 'json',
   branch: string = ''
 ): void {

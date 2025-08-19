@@ -4,7 +4,7 @@
 
 A fast, focused CLI tool to extract meaningful GitHub repo insights — built for developers who want to highlight contribution value, project health, and portfolio-readiness in seconds.
 
-> Version: v1.2.0 | Author: [@NitinNair89](https://github.com/NitinNair89)
+> Version: v1.2.1 | Author: [@NitinNair89](https://github.com/NitinNair89)
 
 ---
 
@@ -51,30 +51,22 @@ npm i -g gitscope-cli
 
 ## 🧪 Usage
 
-Summarize the most recent commits (default: last 10):
-
 ```bash
-gitscope
+gitscope [options]
 ```
 
-Customize the number of commits with `--limit` or `-l`:
+| Short | Long     | Description                         | Default        |
+| ----- | -------- | ----------------------------------- | -------------- |
+| -l    | --limit  | Number of commits to include        | 30             |
+| -o    | --output | Output format: json, markdown, html | json           |
+| -b    | --branch | Branch to fetch commits from        | current branch |
+| -h    | --help   | Display help message                | -              |
+
+### Examples
 
 ```bash
-gitscope -l 5
-```
-
-Generate reports in desired format using `--output` or `-o`:
-
-```bash
-gitscope -l 5 -o "json"     # JSON output
-gitscope -l 5 -o "html"     # HTML output
-gitscope -l 5 -o "markdown" # Markdown output
-```
-
-Use `--branch` or `-b` to generate reports for a specific branch.
-
-```bash
-gitscope -l 5 -b main
+gitscope --limit 5 --output markdown
+gitscope -l 20 -o html -b main
 ```
 
 ---
@@ -94,4 +86,4 @@ npm test
 
 Built with ❤️ by Nitin Nair
 
-Software Engineer • React | Node | TypeScript
+Front-End Developer • React | Node | TypeScript

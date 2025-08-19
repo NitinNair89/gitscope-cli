@@ -1,37 +1,41 @@
 #!/usr/bin/env node
 
-import { Command } from 'commander';
+import mri from 'mri';
 import { generateSummary } from '../src/core/core';
 
-const program = new Command();
+const args = mri(process.argv.slice(2), {
+  alias: { l: 'limit', o: 'output', b: 'branch', h: 'help' },
+  default: {
+    limit: 30,
+    output: 'json',
+  },
+  string: ['output', 'branch'],
+  boolean: ['help'],
+});
 
 const validOutputs = ['json', 'markdown', 'html'];
 
-program
-  .name('gitscope')
-  .description(
-    'Summarize git commit history with meaningful groupings. Supports HTML, JSON and Markdown output formats.'
-  )
-  .version('1.0.0')
-  .option('-l, --limit <number>', 'Number of commits to include', '10')
-  .option('-o, --output <type>', 'Output format: json, markdown, html', 'json')
-  .option('-b, --branch <name>', 'Branch to fetch commits from')
-  .action((options) => {
-    const limit = parseInt(options.limit);
-    const output = options.output;
-    const branch = options.branch;
+if (args.help) {
+  console.log(`
+Usage: gitscope [options]
 
-    if (!validOutputs.includes(output)) {
-      console.error(`Invalid output format. Choose one of: ${validOutputs.join(', ')}`);
-      process.exit(1);
-    }
+Options:
+  -l, --limit <number>   Number of commits to include (default: 30)
+  -o, --output <format>  Output format: json, markdown, html (default: json)
+  -b, --branch <name>    Branch to fetch commits from
+  -h, --help             Display this help message
+`);
+  process.exit(0);
+}
 
-    if (!Number.isInteger(limit) || limit <= 0) {
-      console.error('Limit must be a positive integer.');
-      process.exit(1);
-    }
+if (!validOutputs.includes(args.output)) {
+  console.error(`Invalid output format. Choose one of: ${validOutputs.join(', ')}`);
+  process.exit(1);
+}
 
-    generateSummary(limit, output, branch);
-  });
+if (!Number.isInteger(args.limit) || args.limit <= 0) {
+  console.error('Limit must be a positive integer.');
+  process.exit(1);
+}
 
-program.parse(process.argv);
+generateSummary(args.limit, args.output, args.branch);

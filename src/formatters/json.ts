@@ -15,7 +15,7 @@ import { ParsedCommitType } from '../types';
  * @returns {void} This function does not return a value; it writes the JSON content to a file.
  *
  * @example
- * exportJSON(commits, 10);
+ * exportJSON(commits, 30);
  */
 export function exportJSON(commits: ParsedCommitType[], limit?: number): void {
   const { baseName, exportDir } = getExportMetadata();
