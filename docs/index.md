@@ -4,6 +4,8 @@
 
 A lightweight CLI tool to generate beautiful summaries of your Git commit history in HTML, JSON, or Markdown format.
 
+**NPM** - https://www.npmjs.com/package/gitscope-cli
+
 ## Features
 
 - 📊 Generate formatted commit summaries
@@ -34,6 +36,7 @@ This will generate a JSON report of your last 30 commits.
 - `-l, --limit <number>` - Number of commits to include (default: 30)
 - `-o, --output <type>` - Output format: json, markdown, html (default: json)
 - `-b, --branch <name>` - Analyze specific branch (default: current branch)
+- `-h, --help` - Displays options available to use with this CLI
 
 ### Examples
 
