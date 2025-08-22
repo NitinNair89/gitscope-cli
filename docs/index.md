@@ -1,5 +1,7 @@
 # GitScope CLI
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/NitinNair89/gitscope-cli) ![GitHub Repo stars](https://img.shields.io/github/stars/NitinNair89/gitscope-cli?style=social) ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/NitinNair89/gitscope-cli)
+
 A lightweight CLI tool to generate beautiful summaries of your Git commit history in HTML, JSON, or Markdown format.
 
 ## Features
