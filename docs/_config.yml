@@ -4,3 +4,5 @@ description: Generate beautiful Git commit summaries in HTML, JSON, or Markdown 
 show_downloads: true
 plugins:
   - jekyll-sitemap
+include:
+  - reports/

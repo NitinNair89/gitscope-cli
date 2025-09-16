@@ -1,0 +1,85 @@
+{
+  "metadata": {
+    "title": "GitScope CLI Report",
+    "generated_on": "Generated on 16/9/2025, 9:54:17 pm",
+    "report_duration": "Report Duration: Last 10 commits"
+  },
+  "summary": {
+    "repository": "gitscope-cli",
+    "version": "1.2.2",
+    "total_commits": 10,
+    "overview": "2 release(s) made, 1 features implemented, 1 bugs fixed, documentation updated."
+  },
+  "commits": [
+    {
+      "hash": "12726ac0290c791d2a33d126e064cd9a97b9b0ae",
+      "author": "Nitin Chandran Nair",
+      "date": "Fri Aug 22 23:37:18 2025 +0530",
+      "description": "Update README.md",
+      "type": "other"
+    },
+    {
+      "hash": "6e4885bf85f1cd86c8cfe38559472f8104648857",
+      "author": "Nitin Chandran Nair",
+      "date": "Tue Aug 19 21:50:31 2025 +0530",
+      "description": "migrate from commander → mri, reduce bundle size",
+      "type": "chore"
+    },
+    {
+      "hash": "7fe1539ac596d50cd4c9f8c0fb19d6bb8a2b2852",
+      "author": "Nitin Chandran Nair",
+      "date": "Sat Aug 16 13:19:49 2025 +0530",
+      "description": "v1.2.0 - Updated readme, changelog and package version",
+      "type": "release"
+    },
+    {
+      "hash": "f88c3217e29bdfe9fa5d4fad2f91513507a082ec",
+      "author": "Nitin Chandran Nair",
+      "date": "Fri Aug 15 22:10:08 2025 +0530",
+      "description": "Add --branch flag support",
+      "type": "feat"
+    },
+    {
+      "hash": "0b6df55a2e8cf3fdbfeb826317dcc2f54e542514",
+      "author": "Nitin Chandran Nair",
+      "date": "Fri Aug 15 20:41:25 2025 +0530",
+      "description": "Fix multiple sections for HTML report summary section, refactored styling into its own file",
+      "type": "fix"
+    },
+    {
+      "hash": "890779ef22756c83b8ac01930b0e3c383d72c813",
+      "author": "Nitin Chandran Nair",
+      "date": "Mon Jul 28 00:25:09 2025 +0530",
+      "description": "updated readme and changelog for v1.1.1",
+      "type": "docs"
+    },
+    {
+      "hash": "9d66c5f01fdd78f0d827a24322781d7330f3d637",
+      "author": "Nitin Chandran Nair",
+      "date": "Mon Jul 28 00:20:16 2025 +0530",
+      "description": "Optimise and clean npm packaging setup",
+      "type": "build"
+    },
+    {
+      "hash": "efe1797d7f28f6cc30365c62ff62c41da1968bcb",
+      "author": "Nitin Chandran Nair",
+      "date": "Sun Jul 27 17:19:22 2025 +0530",
+      "description": "Update README.md",
+      "type": "other"
+    },
+    {
+      "hash": "a626fe6a66978b8bcb76b5d00ae4004989c6b773",
+      "author": "Nitin Chandran Nair",
+      "date": "Sat Jul 26 13:42:24 2025 +0530",
+      "description": "v1.1.0 - Updated readme, changelog and package version",
+      "type": "release"
+    },
+    {
+      "hash": "fba730bd1514c96d691582131a71886d15bf61c2",
+      "author": "Nitin Chandran Nair",
+      "date": "Sat Jul 26 12:41:20 2025 +0530",
+      "description": "add GitHub Action to publish on version tag",
+      "type": "ci"
+    }
+  ]
+}
