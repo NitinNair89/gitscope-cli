@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/NitinNair89/gitscope-cli/issues"
   },
-  "homepage": "https://github.com/NitinNair89/gitscope-cli#readme",
+  "homepage": "https://nitinnair89.github.io/gitscope-cli/",
   "type": "commonjs",
   "files": [
     "dist/",
