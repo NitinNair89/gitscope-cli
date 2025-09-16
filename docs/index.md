@@ -6,6 +6,8 @@ A lightweight CLI tool to generate beautiful summaries of your Git commit histor
 
 **NPM** - [https://www.npmjs.com/package/gitscope-cli](https://www.npmjs.com/package/gitscope-cli)
 
+---
+
 ## Features
 
 - 📊 Generate formatted commit summaries
@@ -15,11 +17,15 @@ A lightweight CLI tool to generate beautiful summaries of your Git commit histor
 - 🌙 Dark mode support for HTML reports
 - 🎯 Branch-specific analysis
 
+---
+
 ## Installation
 
 ```bash
 npm install -g gitscope-cli
 ```
+
+---
 
 ## Usage
 
@@ -57,6 +63,8 @@ This will generate a JSON report of your last 30 commits.
    gitscope -l 5 -o json
    ```
 
+---
+
 ## Sample Reports
 
 View sample reports generated using Gitscope CLI:
@@ -71,6 +79,8 @@ These reports showcase different output formats supported by Gitscope CLI:
 - The JSON report provides structured data for programmatic use
 - The Markdown report offers clean, readable changelogs
 
+---
+
 ## Configuration
 
 GitScope automatically detects your repository settings and adapts its output accordingly.
@@ -82,6 +92,8 @@ Reports are saved in the `exports` directory within your repository:
 - HTML reports: `exports/gitscope-report-[timestamp].html`
 - JSON reports: `exports/gitscope-report-[timestamp].json`
 - Markdown reports: `exports/gitscope-report-[timestamp].md`
+
+---
 
 ## Contributing
 
@@ -112,6 +124,8 @@ Contributions are welcome! Please check our [Contributing Guidelines](CONTRIBUTI
 ```bash
 npm test
 ```
+
+---
 
 ## License
 
