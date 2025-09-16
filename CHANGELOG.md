@@ -7,6 +7,17 @@ Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 ---
 
+## [1.2.2] - 2025-16-09
+
+### 📈 Improvements
+
+- Improved overall codebase structure
+- Enhanced HTML, Markdown and JSON reports to follow a common pattern
+- Removed optional defaults for better experience and clarity
+- Display `help` options by default when cli is executed without any arguments
+
+---
+
 ## [1.2.1] - 2025-08-19
 
 ### 📈 Improvements
@@ -32,8 +43,6 @@ Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0
 
 - Introduced esbuild to bundle CLI into a single output file
 - Ensured only minimal, essential files are included in npm tarball
-
----
 
 ---
 
@@ -69,26 +78,6 @@ This is the first official release of **Gitscope CLI** — a command-line tool t
   - 📘 Markdown
 - CLI-first design for fast, repeatable usage
 - Built with **TypeScript + Commander.js**
-
----
-
-### 📦 Tech Stack
-
-- Node.js
-- TypeScript
-- Commander.js
-- Git CLI (via child process)
-
----
-
-### 📌 Installation
-
-```bash
-git clone https://github.com/NitinNair89/gitscope-cli.git
- cd gitscope-cli
- npm install
- npm run dev
-```
 
 ---
 

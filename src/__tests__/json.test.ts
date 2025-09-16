@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { exportJSON } from '../formatters/json';
 import { ParsedCommitType } from '../types';
+import { exportJSON } from '../utils/json';
 
 jest.mock('fs');
 

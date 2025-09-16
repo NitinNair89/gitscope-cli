@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { getExportMetadata, getPackageDetails } from '../core/meta';
+import { COMMIT_TYPES } from '../config/enums';
+import { getCommitType, getExportMetadata } from '../core/meta';
 import { ParsedCommitType } from '../types';
+import { getOverview } from './overview';
+import { getMarkdownSummary, getReadableDate, getReportDuration, getReportTitle } from './summary';
 
 /**
  * Exports commit data as a Markdown file.
@@ -11,9 +14,9 @@ import { ParsedCommitType } from '../types';
  *
  * @param {ParsedCommitType[]} commits Array of commit objects to export as Markdown
  *
- * @returns {string} The generated Markdown content
+ * @returns The generated Markdown content
  */
-function generateGroupedMarkdown(commits: ParsedCommitType[]): string {
+const generateGroupedMarkdown = (commits: ParsedCommitType[]): string => {
   const grouped: Record<string, ParsedCommitType[]> = {};
 
   for (const commit of commits) {
@@ -24,24 +27,26 @@ function generateGroupedMarkdown(commits: ParsedCommitType[]): string {
 
   // Sort types so "other" appears last
   const types = Object.keys(grouped).sort((a, b) => {
-    if (a === 'other') return 1;
-    if (b === 'other') return -1;
+    if (a === COMMIT_TYPES.OTHER) return 1;
+    if (b === COMMIT_TYPES.OTHER) return -1;
     return a.localeCompare(b);
   });
 
   return types
     .map((type) => {
       const sectionTitle =
-        type === 'other' ? 'Other' : type.charAt(0).toUpperCase() + type.slice(1);
+        type === COMMIT_TYPES.OTHER
+          ? `${COMMIT_TYPES.OTHER.charAt(0).toUpperCase()}${COMMIT_TYPES.OTHER.slice(1)}(s)`
+          : `${type.charAt(0).toUpperCase()}${type.slice(1)}(s)`;
       const section = `## ${sectionTitle}\n`;
       const items = grouped[type]
-        .map((c) => `- ${c.description} (\`${c.hash.slice(0, 7)}\`)`)
+        .map((c) => `- ${getCommitType(c.description).description} (\`${c.hash.slice(0, 7)}\`)`)
         .join('\n');
       return `${section}${items}\n`;
     })
     .join('\n')
     .trim();
-}
+};
 
 /**
  * Exports commit data as a Markdown file.
@@ -52,14 +57,12 @@ function generateGroupedMarkdown(commits: ParsedCommitType[]): string {
  * The body of the Markdown file will contain grouped commit data by type.
  *
  * @param {ParsedCommitType[]} commits - Array of commit objects to export as Markdown
- * @param {number} [limit] - Optional limit on the number of commits to include
- *
- * @returns {void} This function does not return a value; it writes the Markdown content to a file.
+ * @param {number} [limit] - Number of commits to include
  *
  * @example
  * exportMarkdown(commits, 30);
  */
-export function exportMarkdown(commits: ParsedCommitType[], limit?: number): void {
+export function exportMarkdown(commits: ParsedCommitType[], limit: number): void {
   const { baseName, exportDir } = getExportMetadata();
 
   let filePath = path.join(exportDir, `${baseName}.md`);
@@ -68,21 +71,16 @@ export function exportMarkdown(commits: ParsedCommitType[], limit?: number): voi
     filePath = path.join(exportDir, `${baseName}-${counter++}.md`);
   }
 
-  const { version, title } = getPackageDetails();
-
-  const header = `# GitScope CLI Report
-**Repository**: ${title} 
-**Version**: ${version}  
-**Branch**: main  
-**Generated at**: ${new Date().toISOString()}  
+  const header = `# ${getReportTitle()}
+${getReadableDate()}  
+${getReportDuration(limit)}  
 
 ---
 
 `;
 
   const summary = `## Summary
-- Total Commits: ${commits.length}
-- Report Duration: Last ${limit ?? commits.length} commits
+${getMarkdownSummary(limit, getOverview(commits))}
 
 ---
 

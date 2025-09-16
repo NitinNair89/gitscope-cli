@@ -1,6 +1,8 @@
-import { generateSummaries } from '../formatters/summary-builder';
+import { REPORT_FORMAT } from '../config/enums';
+import { MESSAGES } from '../config/messages';
 import { branchExists, getCommits } from '../services/git-service';
 import { OutputFormatType } from '../types';
+import { exportSummary } from '../utils/summary';
 
 /**
  * Generates a summary of the latest git commits.
@@ -12,20 +14,19 @@ import { OutputFormatType } from '../types';
  * @returns {void}
  *
  * @example
- * generateSummary(30, 'json');
+ * generateSummary(30, 'json', 'dev);
  */
 export function generateSummary(
-  limit: number = 30,
-  format: OutputFormatType = 'json',
+  limit: number,
+  format: OutputFormatType = REPORT_FORMAT.JSON,
   branch: string = ''
 ): void {
   if (branch.length > 0 && !branchExists(branch)) {
-    console.error(`Error: Branch '${branch}' does not exist in this repository.`);
+    console.error(`${MESSAGES.ERRORS.BRANCH_NOT_EXIST}: ${branch}`);
     return;
   }
 
-  console.log(`Generating summary of last ${limit} commits in ${format} format...`);
+  console.log(`${MESSAGES.EXPORT} ${limit} commits in ${format.toUpperCase()} format...`);
   const commits = getCommits(limit, branch);
-  generateSummaries(commits, format, limit);
-  console.log('Summary generation complete.');
+  exportSummary(commits, format, limit);
 }

@@ -1,10 +1,11 @@
 import fs from 'fs';
-import { generateSummaries } from '../formatters/summary-builder';
-import { OutputFormatType, ParsedCommitType } from '../types';
+import { REPORT_FORMAT } from '../config/enums';
+import { ParsedCommitType } from '../types';
+import { exportSummary } from '../utils/summary';
 
 jest.mock('fs');
 
-describe('formatters/summary-builder', () => {
+describe('Summary', () => {
   const commits: ParsedCommitType[] = [
     {
       type: 'chore',
@@ -60,21 +61,11 @@ describe('formatters/summary-builder', () => {
     consoleSpy.mockRestore();
   });
 
-  it.each(['json', 'markdown'])(
-    "should generate Markdown summary when format is 'markdown'",
+  it.each([REPORT_FORMAT.JSON, REPORT_FORMAT.MARKDOWN, REPORT_FORMAT.HTML])(
+    'should generate summary when format is %s',
     (format) => {
-      generateSummaries(commits, format as OutputFormatType);
+      exportSummary(commits, format, 10);
       expect(mockWriteFile).toHaveBeenCalledTimes(1);
     }
   );
-
-  it('should generate JSON report by default when format is not provided', () => {
-    generateSummaries(commits);
-    expect(mockWriteFile).toHaveBeenCalledTimes(1);
-  });
-
-  it("should generate HTML summary when format is 'html'", () => {
-    generateSummaries(commits, 'html');
-    expect(mockWriteFile).toHaveBeenCalledTimes(1);
-  });
 });
