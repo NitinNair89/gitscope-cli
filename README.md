@@ -4,7 +4,7 @@
 
 A lightweight CLI tool to generate beautiful summaries of your Git commit history in HTML, JSON, or Markdown format.
 
-> Version: v1.2.1 | Author: [@NitinNair89](https://github.com/NitinNair89)
+> Version: v1.2.2 | Author: [@NitinNair89](https://github.com/NitinNair89)
 
 ---
 
@@ -15,7 +15,7 @@ A lightweight CLI tool to generate beautiful summaries of your Git commit histor
 ## 🚀 Features
 
 - Summarizes Git commit history from any local repository using a single CLI command
-- Auto-detects [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `style`, `ci`, `build`
+- Auto-detects [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `release`, `ci`, `build`
 - Groups commits by category with clean markdown-style formatting
 - Exports commit summaries to `HTML`, `JSON`, or `Markdown` formats
 - Outputs self-contained HTML with inline styling for direct printing or sharing
@@ -36,7 +36,7 @@ A lightweight CLI tool to generate beautiful summaries of your Git commit histor
 ## ⚙️ Tech Stack
 
 - Node.js + TypeScript
-- Commander.js (CLI framework)
+- mri (CLI framework)
 - Git CLI (via child process interface)
 
 ---
@@ -57,7 +57,7 @@ gitscope [options]
 
 | Short | Long     | Description                         | Default        |
 | ----- | -------- | ----------------------------------- | -------------- |
-| -l    | --limit  | Number of commits to include        | 30             |
+| -l    | --limit  | Number of commits to include        | -              |
 | -o    | --output | Output format: json, markdown, html | json           |
 | -b    | --branch | Branch to fetch commits from        | current branch |
 | -h    | --help   | Display help message                | -              |
@@ -68,6 +68,8 @@ gitscope [options]
 gitscope --limit 5 --output markdown
 gitscope -l 20 -o html -b main
 ```
+
+Check the [full documentation](https://nitinnair89.github.io/gitscope-cli/) for usage examples and report screenshots.
 
 ---
 

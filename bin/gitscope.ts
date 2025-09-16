@@ -1,26 +1,27 @@
 #!/usr/bin/env node
 
 import mri from 'mri';
+import { REPORT_FORMAT } from '../src/config/enums';
+import { MESSAGES } from '../src/config/messages';
 import { generateSummary } from '../src/core/core';
 
 const args = mri(process.argv.slice(2), {
   alias: { l: 'limit', o: 'output', b: 'branch', h: 'help' },
   default: {
-    limit: 30,
     output: 'json',
   },
   string: ['output', 'branch'],
   boolean: ['help'],
 });
 
-const validOutputs = ['json', 'markdown', 'html'];
+const validOutputs = [REPORT_FORMAT.JSON, REPORT_FORMAT.MARKDOWN, REPORT_FORMAT.HTML];
 
-if (args.help) {
+if (args.help || process.argv.slice(2).length == 0) {
   console.log(`
 Usage: gitscope [options]
 
 Options:
-  -l, --limit <number>   Number of commits to include (default: 30)
+  -l, --limit <number>   Number of commits to include
   -o, --output <format>  Output format: json, markdown, html (default: json)
   -b, --branch <name>    Branch to fetch commits from
   -h, --help             Display this help message
@@ -34,7 +35,7 @@ if (!validOutputs.includes(args.output)) {
 }
 
 if (!Number.isInteger(args.limit) || args.limit <= 0) {
-  console.error('Limit must be a positive integer.');
+  console.error(MESSAGES.ERRORS.LIMIT_POSITIVE_INTEGER);
   process.exit(1);
 }
 

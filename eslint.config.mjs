@@ -17,5 +17,5 @@ export default defineConfig([
     extends: ['json/recommended'],
   },
   { files: ['**/*.css'], plugins: { css }, language: 'css/css', extends: ['css/recommended'] },
-  globalIgnores(['dist/**/*'], 'Ignore Build Directory'),
+  globalIgnores(['dist/**/*', 'coverage/**'], 'Ignore Build Directory'),
 ]);

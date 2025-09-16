@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { exportHTML } from '../formatters/html';
 import { ParsedCommitType } from '../types';
+import { exportHTML } from '../utils/html';
 
 jest.mock('fs');
 

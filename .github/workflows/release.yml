@@ -1,4 +1,5 @@
 name: Release and Publish
+description: Publish package to NPM when a new tag is pushed to main branch
 
 on:
   push:

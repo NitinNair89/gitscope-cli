@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { getExportMetadata, getPackageDetails } from '../core/meta';
+import { getCommitType, getExportMetadata } from '../core/meta';
 import { ParsedCommitType } from '../types';
+import { getOverview } from './overview';
+import { getJSONSummary, getReadableDate, getReportDuration, getReportTitle } from './summary';
 
 /**
  * Exports commit data as a JSON file.
@@ -10,14 +12,14 @@ import { ParsedCommitType } from '../types';
  * The JSON structure includes metadata about the repository, version, branch, and the total number of commits.
  *
  * @param {ParsedCommitType[]} commits Array of commit objects to export as JSON
- * @param {string} limit Optional limit for the number of commits to include in the export
+ * @param {string} limit Number of commits to include in the export
  *
  * @returns {void} This function does not return a value; it writes the JSON content to a file.
  *
  * @example
  * exportJSON(commits, 30);
  */
-export function exportJSON(commits: ParsedCommitType[], limit?: number): void {
+export function exportJSON(commits: ParsedCommitType[], limit: number): void {
   const { baseName, exportDir } = getExportMetadata();
 
   let filePath = path.join(exportDir, `${baseName}.json`);
@@ -26,20 +28,19 @@ export function exportJSON(commits: ParsedCommitType[], limit?: number): void {
     filePath = path.join(exportDir, `${baseName}-${counter++}.json`);
   }
 
-  const { version, title } = getPackageDetails();
-
   const jsonPayload = {
     metadata: {
-      repository: title,
-      version,
-      branch: 'main',
-      generated_at: new Date().toISOString(),
+      title: getReportTitle(),
+      generated_on: getReadableDate(),
+      report_duration: getReportDuration(limit),
     },
-    summary: {
-      total_commits: commits.length,
-      duration: `Last ${limit} commits`,
-    },
-    commits,
+    summary: getJSONSummary(limit, getOverview(commits)),
+    commits: commits.map((c) => {
+      return {
+        ...c,
+        description: getCommitType(c.description).description,
+      };
+    }),
   };
 
   fs.writeFileSync(filePath, JSON.stringify(jsonPayload, null, 2), 'utf-8');

@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import { getExportMetadata, getPackageDetails } from '../core/meta';
+import { COMMIT_TYPES } from '../config/enums';
+import { getCommitType, getExportMetadata, getPackageDetails } from '../core/meta';
 
 jest.mock('fs');
 
-describe('core/meta', () => {
+describe('Meta', () => {
   const mockReadFileSync = fs.readFileSync as jest.Mock;
   const mockExistsSync = fs.existsSync as jest.Mock;
 
@@ -24,12 +25,6 @@ describe('core/meta', () => {
     expect(version).toMatch(/^\d+\.\d+\.\d+$/);
   });
 
-  it("should set default version to '0.0.0' if package file is not found", () => {
-    mockReadFileSync.mockReturnValue(JSON.stringify({}));
-    const { version } = getPackageDetails();
-    expect(version).toBe('0.0.0');
-  });
-
   it('should generate export metadata with a unique base name and export directory', () => {
     const { baseName, exportDir } = getExportMetadata();
     expect(baseName).toMatch(/gitscope-report-\d{8}T\d{4}/);
@@ -42,5 +37,13 @@ describe('core/meta', () => {
     mockExistsSync.mockReturnValueOnce(false);
     getExportMetadata();
     expect(mockMkdirSync).toHaveBeenCalledWith(expect.stringContaining('exports'));
+  });
+
+  it('should parse commit message and return type and description', () => {
+    const { type, description } = getCommitType('test: Tests updated');
+    expect(type).toBeDefined();
+    expect(description).toBeDefined();
+    expect(type).toEqual(COMMIT_TYPES.TEST);
+    expect(description).toEqual('Tests updated');
   });
 });

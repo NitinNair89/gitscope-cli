@@ -7,7 +7,6 @@ describe('git-service', () => {
   const mockExecSync = execSync as jest.Mock;
 
   beforeEach(() => {
-    jest.clearAllMocks();
     mockExecSync.mockReset();
 
     mockExecSync.mockReturnValue(
@@ -17,6 +16,7 @@ describe('git-service', () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
+    jest.clearAllMocks();
   });
 
   it('should return an array of commits', () => {
@@ -24,7 +24,7 @@ describe('git-service', () => {
     expect(Array.isArray(commits)).toBe(true);
   });
 
-  it('should return empty [] when commits are malformed', () => {
+  it('should return empty array when commits are malformed', () => {
     mockExecSync.mockReturnValue('malformed commit data');
     const commits = getCommits(2, '');
     expect(commits.length).toBe(0);

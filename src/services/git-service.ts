@@ -1,4 +1,6 @@
 import { execSync } from 'child_process';
+import { MESSAGES } from '../config/messages';
+import { getCommitType } from '../core/meta';
 import { ParsedCommitType } from '../types';
 
 /**
@@ -6,7 +8,7 @@ import { ParsedCommitType } from '../types';
  * @param limit Number of commits to retrieve
  * @returns {ParsedCommitType[]} Array of parsed commit objects
  */
-export function getCommits(limit: number, branch: string): ParsedCommitType[] {
+function getCommits(limit: number, branch: string): ParsedCommitType[] {
   let defaultBranch;
   try {
     defaultBranch = execSync('git symbolic-ref refs/remotes/origin/HEAD', { encoding: 'utf-8' })
@@ -42,26 +44,23 @@ export function getCommits(limit: number, branch: string): ParsedCommitType[] {
 
         const [hash, author, date, ...messageParts] = lines;
         const message = messageParts.join('\n');
-        const typeMatch = /^(feat|fix|chore|docs|test|refactor|style|ci|build)(\(.+\))?:/i.exec(
-          message
-        );
 
         return {
           hash,
           author,
           date,
           description: message,
-          type: typeMatch ? typeMatch[1] : 'other',
+          type: getCommitType(message).type,
         };
       })
       .filter((commit): commit is ParsedCommitType => commit !== null);
   } catch (error) {
-    console.error('Failed to fetch commits:', error);
+    console.error(`${MESSAGES.ERRORS.FETCH_COMMIT}: ${error}`);
     return [];
   }
 }
 
-export const branchExists = (branch: string) => {
+const branchExists = (branch: string) => {
   try {
     execSync(`git rev-parse --verify ${branch}`, { stdio: 'ignore' });
     return true;
@@ -69,3 +68,5 @@ export const branchExists = (branch: string) => {
     return false;
   }
 };
+
+export { branchExists, getCommits };
