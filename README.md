@@ -4,7 +4,7 @@
 
 A lightweight CLI tool to generate beautiful summaries of your Git commit history in HTML, JSON, or Markdown format.
 
-> Version: v1.2.2 | Author: [@NitinNair89](https://github.com/NitinNair89)
+> Version: v1.2.3 | Author: [@NitinNair89](https://github.com/NitinNair89)
 
 ---
 
